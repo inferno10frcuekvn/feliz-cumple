@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Galería de Cumpleaños</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      font-family: 'Comic Sans MS', cursive;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #ff4081;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1.2em;
+      color: #333;
+      margin-bottom: 30px;
+    }
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+    .slides {
+      display: flex;
+      transition: transform 1s ease;
+    }
+    .slides img,
+    .slides video {
+      width: 500px;
+      height: auto;
+      max-height: 300px;
+      flex-shrink: 0;
+      object-fit: contain;
+      border-radius: 15px;
+    }
+    .heart, .confetti {
+      position: absolute;
+      top: -30px;
+      animation: fall 5s linear infinite;
+      pointer-events: none;
+    }
+    .heart {
+      font-size: 20px;
+    }
+    .confetti {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+    }
+
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+      p {
+        font-size: 1em;
+      }
+      .slides img,
+      .slides video {
+        max-height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 ¡Feliz Cumpleaños! 🎉</h1>
+  <p>Hoy no solo celebro tu cumpleaños, Taty. Celebro que estés en mi vida, que podamos volver a mirarnos con calma, con cariño. No tenía nada planeado para este día, la verdad. No sabía si nos íbamos a volver a hablar. Pero aquí estoy, y me alegra estar. Me alegra que ayer hayamos vuelto a hablar, que hoy pueda decirte feliz cumpleaños con algo más que palabras. Me encanta descubrirte, poco a poco, sin prisa. Y aunque no todo ha sido fácil, tú sigues siendo especial para mí. Este pequeño detalle no es perfecto, pero lo hice pensando en ti, con ganas de que sonrías. Que tengas un cumpleaños lleno de momentos que te hagan sentir viva, querida, y en paz. Y si me dejas, me encantaría ser parte de eso. Feliz cumpleaños💖</p>
+      
+      <audio autoplay loop>
+        <source src="inolvidable.mp3" type="audio/mpeg">
+      </audio>
+
+  <div class="carousel">
+    <div class="slides" id="slides">
+      <img src="imagen1.jpg" alt="Foto 1">
+      <img src="imagen2.jpg" alt="Foto 2">
+      <img src="imagen3.jpg" alt="Foto 3">
+      <img src="imagen4.jpg" alt="Foto 4">
+      <video muted loop>
+        <source src="video.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <script>
+    let index = 0;
+    const slides = document.getElementById('slides');
+    const items = slides.children;
+    const total = items.length;
+
+    function showSlide(i) {
+      slides.style.transform = `translateX(-${i * 100}%)`;
+      for (let j = 0; j < total; j++) {
+        const el = items[j];
+        if (el.tagName === 'VIDEO') {
+          if (j === i) el.play();
+          else el.pause();
+        }
+      }
+    }
+
+    setInterval(() => {
+      index = (index + 1) % total;
+      showSlide(index);
+    }, 4000); // Cambia cada 4 segundos
+
+    // Inicia el primer video si corresponde
+    showSlide(index);
+
+    for (let i = 0; i < 50; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '💖';
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
+      document.body.appendChild(heart);
+    }
+    for (let i = 0; i < 40; i++) {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * window.innerWidth + 'px';
+      confetti.style.backgroundColor = ['#ff4081', '#ffeb3b', '#4caf50', '#2196f3'][Math.floor(Math.random() * 4)];
+      confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      document.body.appendChild(confetti);
+    }
+  </script>
+</body>
+</html>
