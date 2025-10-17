@@ -20,6 +20,9 @@
       font-size: 1.2em;
       color: #333;
       margin-bottom: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .carousel {
       position: relative;
@@ -33,6 +36,7 @@
     .slides {
       display: flex;
       transition: transform 1s ease;
+      width: calc(500px * 5); /* 4 imágenes + 1 video */
     }
     .slides img,
     .slides video {
@@ -57,8 +61,6 @@
       height: 10px;
       border-radius: 3px;
     }
-
-
     @keyframes fall {
       0% {
         transform: translateY(0);
@@ -69,7 +71,6 @@
         opacity: 0;
       }
     }
-
     @media (max-width: 600px) {
       h1 {
         font-size: 2em;
@@ -80,17 +81,21 @@
       .slides img,
       .slides video {
         max-height: 200px;
+        width: 100%;
+      }
+      .slides {
+        width: calc(100% * 5);
       }
     }
   </style>
 </head>
 <body>
   <h1>🎉 ¡Feliz Cumpleaños! 🎉</h1>
-  <p>Hoy no solo celebro tu cumpleaños, Taty. Celebro que estés en mi vida, que podamos volver a mirarnos con calma, con cariño. No tenía nada planeado para este día, la verdad. No sabía si nos íbamos a volver a hablar. Pero aquí estoy, y me alegra estar. Me alegra que ayer hayamos vuelto a hablar, que hoy pueda decirte feliz cumpleaños con algo más que palabras. Me encanta descubrirte, poco a poco, sin prisa. Y aunque no todo ha sido fácil, tú sigues siendo especial para mí. Este pequeño detalle no es perfecto, pero lo hice pensando en ti, con ganas de que sonrías. Que tengas un cumpleaños lleno de momentos que te hagan sentir viva, querida, y en paz. Y si me dejas, me encantaría ser parte de eso. Feliz cumpleaños💖</p>
-      
-      <audio autoplay loop>
-        <source src="inolvidable.mp3" type="audio/mpeg">
-      </audio>
+  <p>Hoy no solo celebro tu cumpleaños, Taty. Celebro que estés en mi vida, que podamos volver a mirarnos con calma, con cariño. No tenía nada planeado para este día, la verdad. No sabía si nos íbamos a volver a hablar. Pero aquí estoy, y me alegra estar. Me alegra que ayer hayamos vuelto a hablar, que hoy pueda decirte feliz cumpleaños con algo más que palabras. Me encanta descubrirte, poco a poco, sin prisa. Y aunque no todo ha sido fácil, tú sigues siendo especial para mí. Este pequeño detalle no es perfecto, pero lo hice pensando en ti, con ganas de que sonrías. Que tengas un cumpleaños lleno de momentos que te hagan sentir viva, querida, y en paz. Y si me dejas, me encantaría ser parte de eso. Feliz cumpleaños 💖</p>
+
+  <audio autoplay loop>
+    <source src="inolvidable.mp3" type="audio/mpeg">
+  </audio>
 
   <div class="carousel">
     <div class="slides" id="slides">
@@ -98,7 +103,7 @@
       <img src="imagen2.jpg" alt="Foto 2">
       <img src="imagen3.jpg" alt="Foto 3">
       <img src="imagen4.jpg" alt="Foto 4">
-      <video muted loop>
+      <video autoplay muted loop>
         <source src="video.mp4" type="video/mp4">
       </video>
     </div>
@@ -111,7 +116,7 @@
     const total = items.length;
 
     function showSlide(i) {
-      slides.style.transform = `translateX(-${i * 100}%)`;
+      slides.style.transform = `translateX(-${i * 500}px)`;
       for (let j = 0; j < total; j++) {
         const el = items[j];
         if (el.tagName === 'VIDEO') {
@@ -124,10 +129,11 @@
     setInterval(() => {
       index = (index + 1) % total;
       showSlide(index);
-    }, 4000); // Cambia cada 4 segundos
+    }, 4000);
 
-    // Inicia el primer video si corresponde
-    showSlide(index);
+    window.onload = () => {
+      showSlide(index);
+    };
 
     for (let i = 0; i < 50; i++) {
       const heart = document.createElement('div');
@@ -138,6 +144,7 @@
       heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
       document.body.appendChild(heart);
     }
+
     for (let i = 0; i < 40; i++) {
       const confetti = document.createElement('div');
       confetti.className = 'confetti';
